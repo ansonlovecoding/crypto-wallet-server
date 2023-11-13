@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+
+  eth_private:
+    build:
+      context: ./docker/images/geth-1.10.8
+      dockerfile: Dockerfile
+    container_name:  eth_private
+    volumes:
+      - ./docker/images/geth-1.10.8/script/start.sh:/root/script/start.sh
+      - ./docker/images/geth-1.10.8/files/genesis.json:/root/files/genesis.json
+      - ./components/geth-private/data/chain:/root/.ethereum
+      - ./components/geth-private/data/ethash:/root/.ethash
+      - /Users/anson/go:/go
+    restart: always
+    ports:
+      - "30303:30303"
+      - "8545:8545"
+      - "8546:8546"

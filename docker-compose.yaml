@@ -1,0 +1,118 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+      - 23306:33060
+    container_name: mysql
+    volumes:
+      - ./components/mysql/data:/var/lib/mysql
+      - /etc/localtime:/etc/localtime
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    restart: always
+
+  mongodb:
+    image: mongo:4.0
+    ports:
+      - 37017:27017
+    container_name: mongo
+    command: --wiredTigerCacheSizeGB 1
+    volumes:
+      - ./components/mongodb/data/db:/data/db
+      - ./components/mongodb/data/logs:/data/logs
+      - ./components/mongodb/data/conf:/etc/mongo
+      - ./script/mongo-init.sh:/script/mongo-init.sh
+    environment:
+      - TZ=Asia/Shanghai
+      # cache
+      - wiredTigerCacheSizeGB=1
+      - MONGO_USERNAME=worker
+      - MONGO_PASSWORD=123456
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=654321
+      - MONGO_INITDB_DATABASE=wallet
+    restart: always
+
+  redis:
+    image: redis
+    ports:
+      - 16379:6379
+    container_name: redis
+    volumes:
+      - ./components/redis/data:/data
+      #redis config file
+      - ./components/redis/config/redis.conf:/usr/local/redis/config/redis.conf
+    environment:
+      TZ: Asia/Shanghai
+    restart: always
+    sysctls:
+      net.core.somaxconn: 1024
+    command: redis-server --requirepass 123456 --appendonly yes
+
+  nginx:
+    build:
+      context: docker/images/nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./docker/images/nginx/conf.d:/etc/nginx/conf.d
+#      - ./components/nginx/ca:/etc/nginx/ca
+#      - ./components/nginx/my_modules:/etc/nginx/my_modules
+      - ./docker/images/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/images/nginx/mime.types:/etc/nginx/mime.types:ro
+#      - ./components/nginx/secure:/opt/secure:ro
+      - ./components/nginx/logs:/var/log/nginx
+#      - ./components/nginx/letsencrypt:/etc/letsencrypt
+      - ./components/nginx/etc:/etc/nginx
+    environment:
+      TZ: Asia/Shanghai
+    restart: always
+
+  etcd:
+    image: quay.io/coreos/etcd
+    ports:
+      - 3379:2379
+      - 3380:2380
+    container_name: etcd
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    environment:
+      ETCDCTL_API: 3
+    restart: always
+    command: /usr/local/bin/etcd --name etcd0 --data-dir /etcd-data --listen-client-urls http://0.0.0.0:2379 --advertise-client-urls http://0.0.0.0:2379 --listen-peer-urls http://0.0.0.0:2380 --initial-advertise-peer-urls http://0.0.0.0:2380 --initial-cluster etcd0=http://0.0.0.0:2380 --initial-cluster-token tkn --initial-cluster-state new
+
+  server_share:
+    build:
+      context: ./
+      dockerfile: ./docker/images/share-wallet/deploy.Dockerfile
+    container_name:  server_share
+    volumes:
+      - ./logs:/server/logs
+#      - /Users/anson/go:/go
+      - /usr/local/go:/go
+      - ./config:/server/config
+      - ./script:/server/script
+      - ./IP2LOCATION-LITE-DB5.BIN:/server/IP2LOCATION-LITE-DB5.BIN
+    restart: always
+    depends_on:
+      - mysql
+      - mongodb
+      - redis
+      - etcd
+    ports:
+      - 20001-20002:20001-20002
+      - 20100:20100
+      - 20120:20120
+      - 20130:20130
+      - 20140:20140
+    #network_mode: "host"
+    logging:
+      driver: json-file
+      options:
+        max-size: "1g"
+        max-file: "2"

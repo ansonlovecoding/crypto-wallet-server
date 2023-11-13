@@ -1,0 +1,23 @@
+coin_type = "btc" # btc, bch
+address_type = "bech32" # p2sh-segwit, bech32, BCH-CashAddr
+
+[bitcoin]
+#host = "172.25.0.8:19001"#127.0.0.1:19001
+host = "127.0.0.1:19001"
+# if specific wallet want to be used like `bitcoin-cli -rpcwallet=anson`
+#host = "127.0.0.1:18332/wallet/anson"
+user = "admin1"
+pass = "123"
+http_post_mode = true
+disable_tls = true
+network_type = "regtest" # mainnet, testnet3, regtest
+
+# only available for watch only wallet, but definition is required as none
+[tracer]
+type = "none"  # none, jaeger, datadog
+
+[file_path]
+tx = "./data/tx/btc/"
+address = "./data/address/btc/"
+full_pubkey = "./data/fullpubkey/btc/"
+

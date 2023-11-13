@@ -1,0 +1,83 @@
+syntax = "proto3";
+option go_package = "./tron;tron";
+
+package tron;
+
+message CommonReq  {
+  string OperationID = 1;
+}
+
+message CommonResp {
+  int32  ErrCode = 1;
+  string ErrMsg = 2;
+}
+
+message GetBalanceReq  {
+  string OperationID = 1;
+  uint32 CoinType = 2;
+  string Address = 3;
+}
+
+message GetBalanceResp {
+  int32  ErrCode = 1;
+  string ErrMsg = 2;
+  string Balance = 3;
+}
+
+message PostTransferReq{
+  string OperationID = 1;
+  uint32 CoinType = 2;
+  string FromAccountUID = 3;
+  string FromMerchantUID = 4;
+  string FromAddress = 5;
+  string ToAddress = 6;
+  string Amount = 7;
+  string TxID = 8;
+  string TxDataStr = 9;
+  string EnergyUsed = 10;
+  string EnergyPenalty = 11;
+}
+
+message TransferRPCResponse{
+  int32  ErrCode = 1;
+  string ErrMsg = 2;
+}
+
+message CreateTransactionReq  {
+  string OperationID = 1;
+  uint32 CoinType = 2;
+  string FromAddress = 3;
+  string ToAddress = 4;
+  string Amount = 5;
+}
+
+message CreateTransactionResp {
+  int32  ErrCode = 1;
+  string ErrMsg = 2;
+  string TxID = 3;
+  string RawTXData = 4;
+}
+
+message GetTronConfirmationReq{
+  string OperationID = 1;
+  uint32 CoinType = 2;
+  string TransactionHash = 3;
+  string MessageID = 4;
+}
+
+message GetTronConfirmationRes{
+  string BlockNum = 1;
+  int32 Status = 2;
+  uint64 ConfirmTime = 3;
+  string NetFee = 4;
+  string EnergyUsage = 5;
+}
+
+service tron {
+  rpc GetTronBalanceRPC(GetBalanceReq) returns(GetBalanceResp);
+  rpc CreateTransactionRPC(CreateTransactionReq) returns(CreateTransactionResp);
+  rpc TransferRPC(PostTransferReq) returns(TransferRPCResponse);
+  rpc GetConfirmationRPC(GetTronConfirmationReq) returns(GetTronConfirmationRes);
+}
+
+

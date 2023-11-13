@@ -1,0 +1,574 @@
+syntax = "proto3";
+option go_package = "./admin;admin";
+
+package admin;
+
+message CommonReq  {
+  string OperationID = 1;
+}
+
+message CommonResp {
+  int32  errCode = 1;
+  string errMsg = 2;
+}
+message AdminLoginReq  {
+  string OperationID = 1;
+  string AdminID = 2;
+  string Secret = 3;
+  bool GAuthTypeToken = 4;
+  bool SecretHashd = 5;
+  string LoginIp= 6;
+}
+
+message AdminLoginResp {
+  string token = 1;
+  bool GAuthEnabled = 2;          
+  bool GAuthSetupRequired = 3;    
+  string GAuthSetupProvUri = 4;
+  User User = 5;
+}
+message User  {
+	string UserName = 1;
+	string Role = 2;
+	repeated string Permissions = 3;
+}
+
+message AddAdminUserResp{
+  CommonResp  CommonResp = 1;
+}
+message AddAdminUserReq{
+  string OperationID = 1;
+  int64 UserID = 2;
+  string name = 3;
+  string nick_name = 4;
+  string OpUserId = 5;
+  string Password = 6;
+  string Role = 7;
+  int32 Status = 8;
+  bool GAuthEnabled  = 9;
+  string Remarks = 10;
+
+}
+
+message ChangeAdminUserPasswordReq {
+  string Secret = 1;
+  string NewSecret = 2;
+  string OperationID = 3;
+  // string TOTP = 4;
+  string UserName = 5;
+}
+
+message ChangeAdminUserPasswordResp {
+  string Token = 1;
+  bool PasswordUpdated = 2;
+}
+
+message GetAdminUserListReq {
+  RequestPagination Pagination = 1;
+  string OperationID = 2;
+  string Name = 3;
+  string OrderBy = 4;
+}
+message GetAdminUserListResp {
+  ResponsePagination Pagination = 1;
+  string OperationID = 2;
+  repeated AdminUser user = 3;
+  int64 TotalUsers=4;
+}
+message GetAdminUserRoleReq {
+  RequestPagination Pagination = 1;
+  string OperationID = 2;
+  string Name = 3;
+  string OrderBy = 4;
+}
+message GetAdminUserRoleResp {
+  ResponsePagination Pagination = 1;
+  string OperationID = 2;
+  repeated AdminUserRole role = 3;
+  int64 TotalUserRole=4;
+}
+
+message AdminUser{
+  int32 Id = 1;
+  string UserName = 2;
+  string Role = 3;
+  string LastLoginIP = 4;
+  int64 LastLoginTime = 5;
+  int32 Status = 6;
+  bool TwoFactorEnabled = 7;
+  string Remarks =8;
+}
+message AdminUserRole{
+  int32 Id = 1;
+  string RoleName = 2;
+  string RoleDescription = 3;
+  int32 RoleNumber = 4;
+  string Remarks = 5;
+  int64 CreateTime = 6;
+  int32 Status = 7;
+  int64 UpdateTime = 8;
+  string CreateUser = 9;
+  string UpdateUser = 10;
+}
+
+message AddAdminUserRoleReq{
+  string OperationID = 1;
+  string RoleName = 2;
+  string RoleDescription = 3;
+  string ActionIDs = 4;
+  string Remarks = 5;
+  string UserName = 6;
+  int64 CreateTime = 7;
+  int32 Status = 8;
+}
+message AddAdminRoleResp{
+  CommonResp  CommonResp = 1;
+}
+message RequestPagination {
+  int32 Page = 1;
+  int32 PageSize = 2;
+}
+
+message ResponsePagination {
+  int32 Page = 1;
+  int32 PageSize = 2;
+}
+message DeleteAdminReq {
+  string OperationID = 1;
+  string UserName = 2;
+  string DeleteUser = 3;
+}
+
+message UpdateAdminReq {
+  string OperationID = 1;
+  string UserName = 2;
+  string Password = 3;
+  string RoleName = 4;
+  string Remarks = 5;
+  int32 Status = 6;
+  bool TwoFactorEnabled = 7;
+  string UpdateUser = 8;
+}
+
+message UpdateAdminResp {
+  string Name = 1;
+  bool AdminUpdated = 2;
+}
+
+message UpdateAdminRoleRequest {
+  string OperationID = 1;
+  string RoleName = 2;
+  string Description = 3;
+  string ActionIDs = 4;
+  string Remarks = 5;
+  string UpdateUser = 6;
+}
+
+message UpdateAdminRoleResponse {
+  string Name = 1;
+  bool AdminRoleUpdated = 2;
+}
+
+message DeleteAdminRoleRequest {
+  string OperationID = 1;
+  string RoleName = 2;
+  string DeleteUser = 3;
+}
+message AdminActions{
+  string ActionName = 1;
+  string Pid = 2;
+  string Remarks = 3;
+  int32 Status = 4;
+}
+
+message GetAdminActionsRequest {
+  string OperationID = 1;
+}
+
+message GetAdminActionsResponse {
+  string Actions = 1;
+}
+
+message NewAction{
+  int32 ID = 1;
+  string Name = 2;
+}
+message Action {
+	int32 ID=1;         
+	string Name=2;    
+	repeated Action Children=3;
+}
+
+
+message GetAdminUserRequest {
+  string UserName = 1;
+  string OperationID = 2;
+}
+
+message GetAdminUserResponse{
+  string UserName = 1;
+  string RoleName = 2;
+  repeated int64 Permissions = 3;
+}
+
+message GetAccountInformationReq{
+  string OperationID = 1;
+  string OrderBy = 2;
+  string Sort = 3;
+  string MerchantUid = 4;
+  string Uid = 5;
+  string AccountAddress = 6;
+  string CoinsType = 7;
+  string AccountSource = 8;
+  string Filter = 9;
+  string From = 10;
+  string To = 11;
+  RequestPagination Pagination = 12;
+}
+
+message AccountAddresses {
+  string BtcPublicAddress = 1;
+  string EthPublicAddress = 2;
+  string TrxPublicAddress = 3;
+  string ErcPublicAddress = 4;
+  string TrcPublicAddress = 5;
+
+}
+
+message LoginInformation {
+  string LoginIp = 1;
+  string LoginRegion = 2;
+  string LoginTerminal = 3;
+  int64 LoginTime = 4;
+}
+
+message AccountAsset{
+  double UsdAmount = 1; 
+  double YuanAmount = 2;
+  double EuroAmount = 3;
+}
+
+message Coin{
+  string Balance = 1;
+  string UsdBalance = 2;
+  string YuanBalance = 3;
+  string EuroBalance = 4;
+}
+message AccountInformation{
+  int64 ID = 1;
+  string Uid = 2;
+  string MerchantUid = 3;
+  string AccountAddress = 4;
+  repeated string CoinsType = 5;
+  AccountAddresses Addresses = 6;
+  LoginInformation CreationLoginInformation = 7;
+  LoginInformation LastLoginInformation = 8;
+  AccountAsset AccountAssets = 9;
+  Coin Btc = 10;
+  Coin Eth = 11;
+  Coin Trx = 12;
+  Coin Erc = 13;
+  Coin Trc = 14;
+  double TotalBalance = 15;
+  string AccountSource = 16;
+}
+message GetAccountInformationResp{
+  ResponsePagination Pagination = 1;
+  repeated AccountInformation Account = 2;
+  int64 TotalAccounts = 3;
+  AccountAsset TotalAssets = 4;
+  Coin BtcTotal = 5;
+  Coin EthTotal = 6;
+  Coin ErcTotal = 7;
+  Coin TrcTotal = 8;
+  Coin TrxTotal = 9;
+}
+
+
+message FundsLog{
+  int64 ID = 1 ;
+  string Txid = 2;
+  string TransactionType = 3;
+  string UserAddress = 4;
+  string OppositeAddress = 5;
+  // double BalanceBefore = 6;
+  // double BalanceAfter = 7;
+  string CoinType = 8;
+  string AmountOfCoins =9;
+  string UsdAmount = 10;
+  string YuanAmount = 11;
+  string EuroAmount = 12;
+  string NetworkFee = 13;
+  string UsdNetworkFee = 14;
+  string YuanNetworkFee = 15;
+  string EuroNetworkFee = 16;
+  string TotalCoinsTransfered = 17;
+  string TotalUsdTransfered = 18;
+  string TotalYuanTransfered = 19;
+  string TotalEuroTransfered = 20;
+  int64 CreationTime = 21;
+  string State = 22;
+  int64 ConfirmationTime = 23;
+  string Uid = 24;
+  string MerchantUid = 25;
+}
+
+message GetFundsLogReq{
+  string OperationID = 1;
+  string Uid = 2;
+  string MerchantUid = 3;
+  string From = 4;
+  string To = 5;
+  string TransactionType = 6;
+  string UserAddress = 7;
+  string OppositeAddress = 8;
+  string CoinsType = 9;
+  string State = 10;
+  string Txid = 11;
+  RequestPagination Pagination = 12;
+}
+
+message GetFundsLogResp{
+  ResponsePagination Pagination = 1;
+  repeated FundsLog FundLog = 2;
+  int64 TotalFundLogs = 3;
+}
+message ReceiveDetails{
+  int64 ID = 1 ;
+  string Uid = 2;
+  string MerchantUid = 3;
+  string Txid = 4;
+  string AmountOfReceived =5;
+  string UsdAmount = 6;
+  string YuanAmount = 7;
+  string EuroAmount = 8;
+  string ReceivingAddress = 9;
+  string DepositAddress = 10;
+  string CoinType = 11;
+  int64 CreationTime = 12;
+}
+
+message GetReceiveDetailsReq{
+  string OperationID = 1;
+  string From = 2;
+  string To = 3;
+  string Uid = 4;
+  string MerchantUid = 5;
+  string ReceivingAddress = 6;
+  string CoinsType = 7;
+  string DepositAddress = 8;
+  string Txid = 9;
+  RequestPagination Pagination = 10;
+}
+
+message GetReceiveDetailsResp{
+  ResponsePagination Pagination = 1;
+  repeated ReceiveDetails ReceiveDetail = 2;
+  int64 TotalDetails = 3;
+  double TotalAmountReceivedUsd = 4;
+  double TotalAmountReceivedYuan = 5;
+  double TotalAmountReceivedEuro = 6;
+  double GrandTotalUsd = 7;
+  double GrandTotalYuan = 8;
+  double GrandTotalEuro = 9;
+}
+message GetTransferDetailsReq{
+  string OperationID = 1;
+  string OrderBy = 2;
+  string From = 3;
+  string To = 4;
+  string Uid = 5;
+  string MerchantUid = 6;
+  string TransferAddress = 7;
+  string CoinsType = 8;
+  string State = 9;
+  string ReceivingAddress = 10;
+  string Txid = 11;
+  RequestPagination Pagination = 12;
+}
+
+message GetTransferDetailsResp{
+  ResponsePagination Pagination = 1;
+  repeated FundsLog TransferDetail = 2;
+  int64 TotalDetails = 3;
+  double TotalAmountTransferedUsd = 4;
+  double TotalAmountTransferedYuan = 5;
+  double TotalAmountTransferedEuro = 6;
+  double TotalFeeAmountUsd = 7;
+  double TotalFeeAmountYuan = 8;
+  double TotalFeeAmountEuro = 9;
+  double GrandTotalUsd = 10;
+  double GrandTotalYuan = 11;
+  double GrandTotalEuro = 12;
+  double TotalTransferUsd = 13;
+  double TotalTransferYuan = 14;
+  double TotalTransferEuro = 15;
+}
+message ResetGoogleKeyReq{
+  string OperationID = 1;
+  string UserName = 2;
+  string UpdateUser = 3;
+}
+
+message GetRoleActionsReq{
+  string OperationID = 1;
+  string RoleName = 2;
+}
+message GetRoleActionsResp{
+  repeated int64 Actions = 1;
+}
+
+message GetCurrenciesReq  {
+  string OperationID = 1;
+  RequestPagination Pagination = 2;
+}
+
+message Currency { 
+  int32 ID = 1;
+  string CoinType = 2;
+  int64 LastEditedTime = 3;
+  string Editor = 4;
+  int32 State = 5;
+}
+message GetCurrenciesResp {
+  repeated Currency Currencies = 1;
+  ResponsePagination Pagination = 2;
+  int64 TotalCurrencies = 3;
+}
+
+message UpdateCurrencyReq{
+  string OperationID = 1;
+  int32 State = 2;
+  int32 CurrencyId = 3;
+  string UpdateUser = 4;
+}
+
+message CreateAccountInfoReq{
+  string OperationID = 1;
+  string MerchantId = 2;
+  string BtcPublicAddress = 3;
+  string EthPublicAddress = 4;
+  string TrxPublicAddress = 5;
+  string ErcPublicAddress = 6;
+  string TrcPublicAddress = 7;
+  double BtcBalance = 8;
+  double EthBalance = 9;
+  double TrxBalance = 10;
+  double ErcBalance = 11;
+  double TrcBalance = 12;
+  string AccountSource = 13;        
+  string CreationLoginIp = 14;      
+  string CreationLoginRegion = 15;  
+  string CreationLoginTerminal = 16;
+  int64 CreationLoginTime = 17;
+  string LastLoginIp = 18;      
+  string LastLoginRegion = 19;  
+  string LastLoginTerminal = 20;
+  int64 LastLoginTime = 21;
+}
+message CreateAccountInfoResp{
+  string Uuid = 1;
+}
+
+
+message CreateFundLogReq{
+  string OperationID = 1;
+  string Uuid = 2;
+  string MerchantId = 3;
+  string Txid = 4;
+  string TransactionType = 5;
+  string UserAddress = 6;
+  string OppositeAddress = 7;
+  double BalanceBefore = 8;
+  double BalanceAfter = 9;
+  string CoinType = 10;
+  double AmountOfCoins = 11;
+  double NetworkFee = 12;
+  int64 CreationTime = 13;
+}
+
+message CreateFundLogResp{
+}
+
+message UpdateFundLogReq{
+  string OperationID = 1;
+  string Txid = 2;
+  double BalanceAfter = 3;
+  string State = 4;
+  int64 ConfirmationTime = 5;
+}
+
+message GetOperationalReportReq{
+  string OperationID = 1;
+  string From = 2;
+  string To = 3;
+  RequestPagination Pagination = 4;
+}
+message Statistics {
+  AccountAsset AccountAssets = 1;
+  Coin Btc = 2;
+  Coin Eth = 3;
+  Coin Trx = 4;
+  Coin Erc = 5;
+  Coin Trc = 6;
+}
+message OperationalReport{
+  string Date = 1;
+  int64 NewUsers = 2;
+  Statistics TotalReceived = 3;
+  Statistics TotalTransfered = 4;
+  Statistics NetworkFee = 5;
+}
+message GetOperationalReportResp{
+  repeated OperationalReport OperationalReports = 1;
+  OperationalReport GrandTotals = 2;
+  AccountAsset TotalAssets = 3;
+  ResponsePagination Pagination = 4;
+  int32 TotalNum = 5;
+  int64 TotalUsers = 6;
+  int64 NewUsersToday = 7;
+}
+
+message UpdateAccountBalanceReq{
+  string OperationID = 1;
+  string MerchantUid = 2;
+  string Uuid = 3;
+  double BtcBalance = 4;
+  double EthBalance = 5;
+  double Erc20Balance = 6;
+  double TrxBalance = 7;
+  double Trc20Balance = 8;
+  string MessageID = 9;
+}
+
+message UpdateAccountBalanceResp{
+  AccountInformation Account = 1;
+}
+
+service admin {
+  rpc TestAdminRPC(CommonReq) returns(CommonResp);
+  rpc AdminLogin(AdminLoginReq) returns(AdminLoginResp);
+  rpc ChangeAdminUserPassword(ChangeAdminUserPasswordReq) returns (ChangeAdminUserPasswordResp);
+  rpc AddAdminUser(AddAdminUserReq) returns (AddAdminUserResp);
+  rpc AddAdminUserRole(AddAdminUserRoleReq) returns (AddAdminRoleResp);
+  rpc GetAdminUserList(GetAdminUserListReq) returns (GetAdminUserListResp);
+  rpc GetAdminUserRole(GetAdminUserRoleReq) returns (GetAdminUserRoleResp);
+  rpc DeleteAdminUser(DeleteAdminReq) returns (CommonResp);
+  rpc UpdateAdminUser(UpdateAdminReq) returns (UpdateAdminResp);
+  rpc UpdateAdminRole(UpdateAdminRoleRequest) returns (UpdateAdminRoleResponse);  
+  rpc DeleteRole(DeleteAdminRoleRequest) returns(CommonResp);
+  rpc AdminLoginV2(AdminLoginReq) returns(AdminLoginResp);
+  rpc GetAdminRoleActions(GetAdminActionsRequest) returns(Action);
+  rpc GetAdminUser(GetAdminUserRequest) returns(GetAdminUserResponse);
+  rpc GetAccountInformation(GetAccountInformationReq) returns(GetAccountInformationResp);
+  rpc GetFundsLog(GetFundsLogReq) returns(GetFundsLogResp);
+  rpc GetReceiveDetails(GetReceiveDetailsReq) returns(GetReceiveDetailsResp);
+  rpc GetTransferDetails(GetTransferDetailsReq)returns(GetTransferDetailsResp);
+  rpc ResetGoogleKey(ResetGoogleKeyReq)returns(CommonResp);
+  rpc GetRoleActions(GetRoleActionsReq)returns(GetRoleActionsResp);
+  rpc GetCurrencies(GetCurrenciesReq) returns (GetCurrenciesResp);
+  rpc UpdateCurrency(UpdateCurrencyReq)returns(CommonResp);
+  rpc GetOperationalReport(GetOperationalReportReq)returns(GetOperationalReportResp);
+  rpc UpdateAccountBalance(UpdateAccountBalanceReq)returns(UpdateAccountBalanceResp);
+}
+

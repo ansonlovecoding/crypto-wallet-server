@@ -1,0 +1,1660 @@
+basePath: /cms/v1
+definitions:
+  admin_api.AccountAddresses:
+    properties:
+      btc_public_address:
+        type: string
+      erc_public_address:
+        type: string
+      eth_public_address:
+        type: string
+      trc_public_address:
+        type: string
+      trx_public_address:
+        type: string
+    type: object
+  admin_api.AccountAsset:
+    properties:
+      euro_amount:
+        type: number
+      usd_amount:
+        type: number
+      yuan_amount:
+        type: number
+    type: object
+  admin_api.AccountInformation:
+    properties:
+      account_assets:
+        $ref: '#/definitions/admin_api.AccountAsset'
+        type: object
+      account_source:
+        type: string
+      addresses:
+        $ref: '#/definitions/admin_api.AccountAddresses'
+        type: object
+      btc:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      coins_type:
+        items:
+          type: string
+        type: array
+      creation_login_information:
+        $ref: '#/definitions/admin_api.LoginInformation'
+        type: object
+      erc:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      eth:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      id:
+        type: integer
+      last_login_information:
+        $ref: '#/definitions/admin_api.LoginInformation'
+        type: object
+      merchant_uid:
+        type: string
+      total_balance:
+        type: number
+      trc:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      trx:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      uid:
+        type: integer
+    type: object
+  admin_api.AdminLoginRequest:
+    properties:
+      admin_name:
+        type: string
+      secret:
+        type: string
+    required:
+    - admin_name
+    - secret
+    type: object
+  admin_api.AdminLoginResponse:
+    properties:
+      gAuthEnabled:
+        type: boolean
+      gAuthSetupProvUri:
+        type: string
+      gAuthSetupRequired:
+        type: boolean
+      token:
+        type: string
+      user:
+        $ref: '#/definitions/admin_api.User'
+        description: |-
+          UserName           string   `json:"user_name"`
+          Role               string   `json:"role"`
+          Permissions        []string `json:"permissions"`
+        type: object
+    type: object
+  admin_api.AdminPasswordChangeRequest:
+    properties:
+      new_secret:
+        type: string
+      secret:
+        type: string
+    required:
+    - new_secret
+    - secret
+    type: object
+  admin_api.AdminPasswordChangeResponse:
+    properties:
+      password_updated:
+        type: boolean
+      token:
+        type: string
+    type: object
+  admin_api.AdminUser:
+    properties:
+      id:
+        type: integer
+      last_login_time:
+        type: integer
+      last_loginIP:
+        type: string
+      remarks:
+        type: string
+      role:
+        type: string
+      status:
+        type: integer
+      two_factor_enabled:
+        type: boolean
+      user_name:
+        type: string
+    type: object
+  admin_api.AdminUserRole:
+    properties:
+      create_time:
+        type: integer
+      create_user:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      remarks:
+        type: string
+      role_name:
+        type: string
+      role_number:
+        type: integer
+      status:
+        type: integer
+      update_time:
+        type: integer
+      update_user:
+        type: string
+    type: object
+  admin_api.Children:
+    properties:
+      ID:
+        type: integer
+      Name:
+        type: string
+    type: object
+  admin_api.Coin:
+    properties:
+      balance:
+        type: number
+      euro_balance:
+        type: number
+      usd_balance:
+        type: number
+      yuan_balance:
+        type: number
+    type: object
+  admin_api.ConfirmTransactionRequest:
+    properties:
+      coin_type:
+        type: integer
+      operation_id:
+        type: string
+      tx_hash_id:
+        type: string
+    type: object
+  admin_api.ConfirmTransactionResponse:
+    properties:
+      transfer_detail:
+        $ref: '#/definitions/admin_api.FundsLog'
+        type: object
+    type: object
+  admin_api.Currency:
+    properties:
+      coin_type:
+        type: string
+      editor:
+        type: string
+      id:
+        type: integer
+      last_edited_time:
+        type: integer
+      state:
+        type: integer
+    type: object
+  admin_api.DeleteAdminRequest:
+    properties:
+      delete_user:
+        type: string
+      operationID:
+        type: string
+      user_name:
+        type: string
+    required:
+    - user_name
+    type: object
+  admin_api.DeleteRoleRequest:
+    properties:
+      delete_user:
+        type: string
+      operationID:
+        type: string
+      role_name:
+        type: string
+    required:
+    - role_name
+    type: object
+  admin_api.FundsLog:
+    properties:
+      amount_of_coins:
+        type: number
+      balance_after:
+        type: number
+      balance_before:
+        type: number
+      coin_type:
+        type: string
+      confirmation_time:
+        type: integer
+      creation_time:
+        type: integer
+      euro_amount:
+        type: number
+      euro_network_fee:
+        type: number
+      id:
+        type: integer
+      merchant_uid:
+        type: string
+      network_fee:
+        type: number
+      opposite_address:
+        type: string
+      state:
+        type: string
+      total_coins_transfered:
+        type: number
+      total_euro_transfered:
+        type: number
+      total_usd_transfered:
+        type: number
+      total_yuan_transfered:
+        type: number
+      transaction_type:
+        type: string
+      txid:
+        type: string
+      uid:
+        type: integer
+      usd_amount:
+        type: number
+      usd_network_fee:
+        type: number
+      user_address:
+        type: string
+      yuan_amount:
+        type: number
+      yuan_network_fee:
+        type: number
+    type: object
+  admin_api.GetAccountInformationRequest:
+    properties:
+      accountAddress:
+        type: string
+      accountSource:
+        type: string
+      coinsType:
+        type: string
+      filter:
+        type: string
+      from:
+        type: string
+      merchantUid:
+        type: string
+      operationID:
+        type: string
+      orderBy:
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      sort:
+        type: string
+      to:
+        type: string
+      uid:
+        type: integer
+    type: object
+  admin_api.GetAccountInformationResponse:
+    properties:
+      accounts:
+        items:
+          $ref: '#/definitions/admin_api.AccountInformation'
+        type: array
+      btc_total:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      erc_total:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      eth_total:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total_assets:
+        $ref: '#/definitions/admin_api.AccountAsset'
+        type: object
+      total_num:
+        type: integer
+      trc_total:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      trx_total:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+    type: object
+  admin_api.GetAdminUserActionsResponse:
+    properties:
+      Children:
+        items:
+          $ref: '#/definitions/admin_api.Children'
+        type: array
+      ID:
+        type: integer
+      Name:
+        type: string
+    type: object
+  admin_api.GetAdminUserRequest:
+    properties:
+      operationID:
+        description: UserName    string `json:"user_name" swaggertype:"string"`
+        type: string
+    type: object
+  admin_api.GetAdminUserResponse:
+    properties:
+      permissions:
+        items:
+          type: integer
+        type: array
+      role_name:
+        type: string
+      user_name:
+        type: string
+    type: object
+  admin_api.GetAdminUserRoleRequest:
+    properties:
+      name:
+        type: string
+      operationID:
+        type: string
+      orderBy:
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+    required:
+    - operationID
+    type: object
+  admin_api.GetAdminUserRoleResponse:
+    properties:
+      page:
+        type: integer
+      page_size:
+        type: integer
+      role_nums:
+        type: integer
+      roles:
+        items:
+          $ref: '#/definitions/admin_api.AdminUserRole'
+        type: array
+    type: object
+  admin_api.GetAdminUsersRequest:
+    properties:
+      name:
+        type: string
+      operationID:
+        type: string
+      orderBy:
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+    required:
+    - operationID
+    type: object
+  admin_api.GetAdminUsersResponse:
+    properties:
+      page:
+        type: integer
+      page_size:
+        type: integer
+      user_nums:
+        type: integer
+      users:
+        items:
+          $ref: '#/definitions/admin_api.AdminUser'
+        type: array
+    type: object
+  admin_api.GetCurrenciesRequest:
+    properties:
+      operationID:
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+    type: object
+  admin_api.GetCurrenciesResponse:
+    properties:
+      currencies:
+        items:
+          $ref: '#/definitions/admin_api.Currency'
+        type: array
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total_num:
+        type: integer
+    type: object
+  admin_api.GetFundsLogRequest:
+    properties:
+      coinsType:
+        type: string
+      from:
+        type: string
+      merchantUid:
+        type: string
+      operationID:
+        type: string
+      oppositeAddress:
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      state:
+        type: string
+      to:
+        type: string
+      transactionType:
+        type: string
+      txid:
+        type: string
+      uid:
+        type: integer
+      userAddress:
+        type: string
+    required:
+    - coinsType
+    type: object
+  admin_api.GetFundsLogResponse:
+    properties:
+      funds_log:
+        items:
+          $ref: '#/definitions/admin_api.FundsLog'
+        type: array
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total_num:
+        type: integer
+    type: object
+  admin_api.GetOperationalReportRequest:
+    properties:
+      from:
+        type: string
+      operationID:
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      to:
+        type: string
+    type: object
+  admin_api.GetOperationalReportResponse:
+    properties:
+      grand_totals:
+        $ref: '#/definitions/admin_api.OperationalReport'
+        type: object
+      operational_reports:
+        items:
+          $ref: '#/definitions/admin_api.OperationalReport'
+        type: array
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total_assets:
+        $ref: '#/definitions/admin_api.AccountAsset'
+        type: object
+      total_num:
+        type: integer
+      total_users:
+        type: integer
+    type: object
+  admin_api.GetReceiveDetailsRequest:
+    properties:
+      coinsType:
+        type: string
+      depositAddress:
+        type: string
+      from:
+        type: string
+      merchantUid:
+        type: string
+      operationID:
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      receivingAddress:
+        type: string
+      to:
+        type: string
+      txid:
+        type: string
+      uid:
+        type: integer
+    type: object
+  admin_api.GetRecieveDetailsResponse:
+    properties:
+      grand_total_euro:
+        type: number
+      grand_total_usd:
+        type: number
+      grand_total_yuan:
+        type: number
+      page:
+        type: integer
+      page_size:
+        type: integer
+      receive_details:
+        items:
+          $ref: '#/definitions/admin_api.ReceiveDetails'
+        type: array
+      total_amount_received_euro:
+        type: number
+      total_amount_received_usd:
+        type: number
+      total_amount_received_yuan:
+        type: number
+      total_num:
+        type: integer
+    type: object
+  admin_api.GetRoleActionsRequest:
+    properties:
+      operationID:
+        type: string
+      role_name:
+        type: string
+    required:
+    - role_name
+    type: object
+  admin_api.GetRoleActionsResponse:
+    properties:
+      actions:
+        items:
+          type: integer
+        type: array
+    type: object
+  admin_api.GetTransferDetailsRequest:
+    properties:
+      coinsType:
+        type: string
+      from:
+        type: string
+      merchantUid:
+        type: string
+      operationID:
+        type: string
+      orderBy:
+        type: string
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      receivingAddress:
+        type: string
+      state:
+        type: string
+      to:
+        type: string
+      transferAddress:
+        type: string
+      txid:
+        type: string
+      uid:
+        type: integer
+    type: object
+  admin_api.GetTransferDetailsResponse:
+    properties:
+      grand_total_euro:
+        type: number
+      grand_total_usd:
+        type: number
+      grand_total_yuan:
+        type: number
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total_amount_transfered_euro:
+        type: number
+      total_amount_transfered_usd:
+        type: number
+      total_amount_transfered_yuan:
+        type: number
+      total_fee_amount_Yuan:
+        type: number
+      total_fee_amount_euro:
+        type: number
+      total_fee_amount_usd:
+        type: number
+      total_num:
+        type: integer
+      total_transfer_euro:
+        type: number
+      total_transfer_usd:
+        type: number
+      total_transfer_yuan:
+        type: number
+      transfer_details:
+        items:
+          $ref: '#/definitions/admin_api.FundsLog'
+        type: array
+    type: object
+  admin_api.LoginInformation:
+    properties:
+      login_ip:
+        type: string
+      login_region:
+        type: string
+      login_terminal:
+        type: string
+      login_time:
+        type: integer
+    type: object
+  admin_api.OperationalReport:
+    properties:
+      confirmation_time:
+        type: integer
+      network_fee:
+        $ref: '#/definitions/admin_api.Statistics'
+        type: object
+      new_users:
+        type: integer
+      total_received:
+        $ref: '#/definitions/admin_api.Statistics'
+        type: object
+      total_transfered:
+        $ref: '#/definitions/admin_api.Statistics'
+        type: object
+    type: object
+  admin_api.ParamsTOTPVerify:
+    properties:
+      operationID:
+        type: string
+      totp:
+        type: string
+    required:
+    - totp
+    type: object
+  admin_api.PostAdminRoleRequest:
+    properties:
+      actionIDs:
+        type: integer
+      description:
+        type: integer
+      operationID:
+        type: string
+      remarks:
+        type: string
+      role_name:
+        type: string
+      status:
+        type: string
+      user_name:
+        type: string
+    required:
+    - actionIDs
+    - description
+    - remarks
+    - role_name
+    - user_name
+    type: object
+  admin_api.PostAdminUserRequest:
+    properties:
+      operationID:
+        type: string
+      remarks:
+        type: string
+      role:
+        type: string
+      secret:
+        type: integer
+      status:
+        type: string
+      two_factor_enabled:
+        type: string
+      user_name:
+        type: string
+    required:
+    - remarks
+    - role
+    - secret
+    - status
+    - user_name
+    type: object
+  admin_api.ReceiveDetails:
+    properties:
+      amount_of_received:
+        type: number
+      coin_type:
+        type: string
+      creation_time:
+        type: integer
+      deposit_address:
+        type: string
+      euro_amount:
+        type: number
+      id:
+        type: integer
+      merchant_uid:
+        type: string
+      receiving_address:
+        type: string
+      txid:
+        type: string
+      uid:
+        type: integer
+      usd_amount:
+        type: number
+      yuan_amount:
+        type: number
+    type: object
+  admin_api.ResetGoogleKeyRequest:
+    properties:
+      operationID:
+        type: string
+      user_name:
+        type: string
+    required:
+    - user_name
+    type: object
+  admin_api.Statistics:
+    properties:
+      btc:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      erc:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      eth:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      total_assets:
+        $ref: '#/definitions/admin_api.AccountAsset'
+        type: object
+      trc:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+      trx:
+        $ref: '#/definitions/admin_api.Coin'
+        type: object
+    type: object
+  admin_api.TestRequest:
+    properties:
+      name:
+        type: string
+      operationID:
+        type: string
+    required:
+    - name
+    - operationID
+    type: object
+  admin_api.TestResponse:
+    properties:
+      name:
+        type: string
+    type: object
+  admin_api.UpdateAdminReq:
+    properties:
+      operationID:
+        type: string
+      password:
+        type: string
+      remarks:
+        type: string
+      role_name:
+        type: string
+      status:
+        type: string
+      two_factor_enabled:
+        type: boolean
+      user_name:
+        type: string
+    required:
+    - role_name
+    - status
+    - user_name
+    type: object
+  admin_api.UpdateAdminRoleRequest:
+    properties:
+      actionIDs:
+        type: integer
+      description:
+        type: string
+      operationID:
+        type: string
+      remarks:
+        type: string
+      role_name:
+        type: string
+      update_user:
+        type: string
+    required:
+    - actionIDs
+    - remarks
+    - role_name
+    type: object
+  admin_api.UpdateCurrencyRequest:
+    properties:
+      currency_id:
+        type: integer
+      operationID:
+        type: string
+      state:
+        type: integer
+    required:
+    - currency_id
+    type: object
+  admin_api.User:
+    properties:
+      permissions:
+        items:
+          type: string
+        type: array
+      role:
+        type: string
+      user_name:
+        type: string
+    type: object
+host: cms.wallet.com
+info:
+  contact: {}
+  description: This is server for management platform.
+  license:
+    name: Apache 2.0
+  title: Admin API
+  version: 1.0.0
+paths:
+  /admin/account-management:
+    get:
+      consumes:
+      - application/json
+      description: GetAccountInformation
+      parameters:
+      - in: query
+        name: accountAddress
+        type: string
+      - in: query
+        name: accountSource
+        type: string
+      - in: query
+        name: coinsType
+        type: string
+      - in: query
+        name: filter
+        type: string
+      - in: query
+        name: from
+        type: string
+      - in: query
+        name: merchantUid
+        type: string
+      - in: query
+        name: operationID
+        type: string
+      - in: query
+        name: orderBy
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: sort
+        type: string
+      - in: query
+        name: to
+        type: string
+      - in: query
+        name: uid
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.GetAccountInformationResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.GetAccountInformationResponse'
+      summary: GetAccountInformation
+      tags:
+      - Admin
+  /admin/actions:
+    get:
+      consumes:
+      - application/json
+      description: AdminUserActions
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.GetAdminUserActionsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.GetAdminUserActionsResponse'
+      summary: AdminUserActions
+      tags:
+      - Admin
+  /admin/admin-verify-totp:
+    post:
+      consumes:
+      - application/json
+      description: VerifyTOTPAdminUser
+      parameters:
+      - description: totp and operationID are required
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.ParamsTOTPVerify'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.AdminLoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.AdminLoginResponse'
+      summary: VerifyTOTPAdminUser
+      tags:
+      - Admin
+  /admin/confirm_tx:
+    post:
+      consumes:
+      - application/json
+      description: ConfirmTransaction
+      parameters:
+      - in: query
+        name: coin_type
+        type: integer
+      - in: query
+        name: operation_id
+        type: string
+      - in: query
+        name: tx_hash_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.ConfirmTransactionResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.ConfirmTransactionResponse'
+      summary: ConfirmTransaction
+      tags:
+      - Admin
+  /admin/currencies:
+    get:
+      consumes:
+      - application/json
+      description: GetCurrencies
+      parameters:
+      - in: query
+        name: operationID
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.GetCurrenciesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.GetCurrenciesResponse'
+      summary: GetCurrencies
+      tags:
+      - Admin
+  /admin/funds-log:
+    get:
+      consumes:
+      - application/json
+      description: GetFundsLog
+      parameters:
+      - in: query
+        name: coinsType
+        required: true
+        type: string
+      - in: query
+        name: from
+        type: string
+      - in: query
+        name: merchantUid
+        type: string
+      - in: query
+        name: operationID
+        type: string
+      - in: query
+        name: oppositeAddress
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: state
+        type: string
+      - in: query
+        name: to
+        type: string
+      - in: query
+        name: transactionType
+        type: string
+      - in: query
+        name: txid
+        type: string
+      - in: query
+        name: uid
+        type: integer
+      - in: query
+        name: userAddress
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.GetFundsLogResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.GetFundsLogResponse'
+      summary: GetFundsLog
+      tags:
+      - Admin
+  /admin/login:
+    post:
+      consumes:
+      - application/json
+      description: Admin Login
+      parameters:
+      - description: admin_name and secret are required
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.AdminLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.AdminLoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.AdminLoginResponse'
+      summary: Admin Login
+      tags:
+      - Admin
+  /admin/operational-report:
+    get:
+      consumes:
+      - application/json
+      description: GetOperationalReport
+      parameters:
+      - in: query
+        name: from
+        type: string
+      - in: query
+        name: operationID
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: to
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.GetOperationalReportResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.GetOperationalReportResponse'
+      summary: GetOperationalReport
+      tags:
+      - Admin
+  /admin/receive-details:
+    get:
+      consumes:
+      - application/json
+      description: GetReceiveDetails
+      parameters:
+      - in: query
+        name: coinsType
+        type: string
+      - in: query
+        name: depositAddress
+        type: string
+      - in: query
+        name: from
+        type: string
+      - in: query
+        name: merchantUid
+        type: string
+      - in: query
+        name: operationID
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: receivingAddress
+        type: string
+      - in: query
+        name: to
+        type: string
+      - in: query
+        name: txid
+        type: string
+      - in: query
+        name: uid
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.GetRecieveDetailsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.GetRecieveDetailsResponse'
+      summary: GetReceiveDetails
+      tags:
+      - Admin
+  /admin/reset-google-key:
+    post:
+      consumes:
+      - application/json
+      description: ResetGoogleKey
+      parameters:
+      - in: query
+        name: operationID
+        type: string
+      - in: query
+        name: user_name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: error
+          schema:
+            type: string
+      summary: ResetGoogleKey
+      tags:
+      - Admin
+  /admin/reset-password:
+    post:
+      consumes:
+      - application/json
+      description: ChangePassword
+      parameters:
+      - description: secret and new_secret are required
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.AdminPasswordChangeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.AdminPasswordChangeResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.AdminPasswordChangeResponse'
+      summary: ChangePassword
+      tags:
+      - Admin
+  /admin/role-actions:
+    get:
+      consumes:
+      - application/json
+      description: GetRoleActions
+      parameters:
+      - in: query
+        name: operationID
+        type: string
+      - in: query
+        name: role_name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.GetRoleActionsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.GetRoleActionsResponse'
+      summary: GetRoleActions
+      tags:
+      - Admin
+  /admin/role-delete:
+    post:
+      consumes:
+      - application/json
+      description: DeleteRole
+      parameters:
+      - description: role_name and operationID are required
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.DeleteRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: error
+          schema:
+            type: string
+      summary: DeleteRole
+      tags:
+      - Admin
+  /admin/roles:
+    get:
+      consumes:
+      - application/json
+      description: AdminUserRole
+      parameters:
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: operationID
+        required: true
+        type: string
+      - in: query
+        name: orderBy
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.GetAdminUserRoleResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.GetAdminUserRoleResponse'
+      summary: AdminUserRole
+      tags:
+      - Admin
+    post:
+      consumes:
+      - application/json
+      description: AddAdminUserRole
+      parameters:
+      - description: role_name,description,actionIDs,remarks,status and username are
+          required
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.PostAdminRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: error
+          schema:
+            type: string
+      summary: AddAdminUserRole
+      tags:
+      - Admin
+  /admin/roles-update:
+    post:
+      consumes:
+      - application/json
+      description: UpdateAdminRole
+      parameters:
+      - description: role_name,description,actionIDs,remarks and operationID are required
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.UpdateAdminRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: error
+          schema:
+            type: string
+      summary: UpdateAdminRole
+      tags:
+      - Admin
+  /admin/test:
+    post:
+      consumes:
+      - application/json
+      description: Testing admin server
+      parameters:
+      - description: operationID is only for tracking
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.TestRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.TestResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.TestResponse'
+      summary: Testing admin server
+      tags:
+      - Test
+  /admin/transfer-details:
+    get:
+      consumes:
+      - application/json
+      description: GetTransferDetails
+      parameters:
+      - in: query
+        name: coinsType
+        type: string
+      - in: query
+        name: from
+        type: string
+      - in: query
+        name: merchantUid
+        type: string
+      - in: query
+        name: operationID
+        type: string
+      - in: query
+        name: orderBy
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: receivingAddress
+        type: string
+      - in: query
+        name: state
+        type: string
+      - in: query
+        name: to
+        type: string
+      - in: query
+        name: transferAddress
+        type: string
+      - in: query
+        name: txid
+        type: string
+      - in: query
+        name: uid
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.GetTransferDetailsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.GetTransferDetailsResponse'
+      summary: GetTransferDetails
+      tags:
+      - Admin
+  /admin/update-currency:
+    post:
+      consumes:
+      - application/json
+      description: UpdateCurrency
+      parameters:
+      - description: currency_id is required
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.UpdateCurrencyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: error
+          schema:
+            type: string
+      summary: UpdateCurrency
+      tags:
+      - Admin
+  /admin/user-delete:
+    post:
+      consumes:
+      - application/json
+      description: DeleteUserAPI
+      parameters:
+      - description: user_name and operationID are required
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.DeleteAdminRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: error
+          schema:
+            type: string
+      summary: DeleteUserAPI
+      tags:
+      - Admin
+  /admin/user-info:
+    get:
+      consumes:
+      - application/json
+      description: GetAdminUser
+      parameters:
+      - description: operationID is required
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.GetAdminUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.GetAdminUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.GetAdminUserResponse'
+      summary: GetAdminUser
+      tags:
+      - Admin
+  /admin/users:
+    get:
+      consumes:
+      - application/json
+      description: AdminUserList
+      parameters:
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: operationID
+        required: true
+        type: string
+      - in: query
+        name: orderBy
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin_api.GetAdminUsersResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/admin_api.GetAdminUsersResponse'
+      summary: AdminUserList
+      tags:
+      - Admin
+    post:
+      consumes:
+      - application/json
+      description: AddAdminUser
+      parameters:
+      - description: user_name,secret,role,remarks,two_factor_enabled and status are
+          required
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.PostAdminUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: error
+          schema:
+            type: string
+      summary: AddAdminUser
+      tags:
+      - Admin
+  /admin/users-update:
+    post:
+      consumes:
+      - application/json
+      description: UpdateAdmin
+      parameters:
+      - description: old_name,new_name,password,role,status, google_verification and
+          operationID are required
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/admin_api.UpdateAdminReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: error
+          schema:
+            type: string
+      summary: UpdateAdmin
+      tags:
+      - Admin
+swagger: "2.0"

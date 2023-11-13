@@ -1,0 +1,232 @@
+basePath: /api/v1
+definitions:
+  big.Int:
+    type: object
+  wallet_api.GetEthBalanceRequest:
+    properties:
+      address:
+        type: string
+      coin_type:
+        type: integer
+      operationID:
+        type: string
+    required:
+    - address
+    - coin_type
+    - operationID
+    type: object
+  wallet_api.GetEthBalanceResponse:
+    properties:
+      balance:
+        $ref: '#/definitions/big.Int'
+        type: object
+    type: object
+  wallet_api.GetSupportTokenAddressesRequest:
+    properties:
+      operationID:
+        type: string
+    required:
+    - operationID
+    type: object
+  wallet_api.GetSupportTokenAddressesResponse:
+    properties:
+      address_list:
+        items:
+          $ref: '#/definitions/wallet_api.SupportTokenAddress'
+        type: array
+    type: object
+  wallet_api.SupportTokenAddress:
+    properties:
+      belong_coin:
+        type: integer
+      coin_type:
+        type: integer
+      contract_address:
+        type: string
+    required:
+    - belong_coin
+    - coin_type
+    - contract_address
+    type: object
+  wallet_api.TestRequest:
+    properties:
+      name:
+        type: string
+      operationID:
+        type: string
+    required:
+    - name
+    - operationID
+    type: object
+  wallet_api.TestResponse:
+    properties:
+      name:
+        type: string
+    type: object
+host: cms.wallet.com
+info:
+  contact: {}
+  description: This is server for Wallet service.
+  license:
+    name: Apache 2.0
+  title: Wallet API
+  version: 1.0.0
+paths:
+  /btc/get_balance:
+    post:
+      consumes:
+      - application/json
+      description: Get blockchain info
+      parameters:
+      - description: operationID is only for tracking
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/wallet_api.TestRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet_api.GetEthBalanceRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wallet_api.GetEthBalanceResponse'
+      summary: Get blockchain info
+      tags:
+      - BTC
+  /btc/test_btc:
+    post:
+      consumes:
+      - application/json
+      description: Testing btc-rpc server
+      parameters:
+      - description: operationID is only for tracking
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/wallet_api.TestRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet_api.TestResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wallet_api.TestResponse'
+      summary: Testing btc-rpc server
+      tags:
+      - BTC
+  /eth/get_support_token_addresses:
+    post:
+      consumes:
+      - application/json
+      description: Get token address list that we are support
+      parameters:
+      - description: operationID is only for tracking
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/wallet_api.TestRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet_api.GetSupportTokenAddressesRequest'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wallet_api.GetSupportTokenAddressesResponse'
+      summary: Get token address list that we are support
+      tags:
+      - ETH
+  /usdterc20/get_balance:
+    post:
+      consumes:
+      - application/json
+      description: Get Balance for USDT-ERC20 address
+      parameters:
+      - description: operationID is only for tracking
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/wallet_api.TestRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet_api.TestResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wallet_api.TestResponse'
+      summary: Get Balance for USDT-ERC20 address
+      tags:
+      - USDT-ERC20
+  /wallet/test:
+    post:
+      consumes:
+      - application/json
+      description: Testing wallet server
+      parameters:
+      - description: operationID is only for tracking
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/wallet_api.TestRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet_api.TestResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wallet_api.TestResponse'
+      summary: Testing wallet server
+      tags:
+      - Test
+  /wallet/test_eth:
+    post:
+      consumes:
+      - application/json
+      description: 'Get Balance for eth address, coinType: 1 BTC, 2 ETH, 3 USDT-ERC20,
+        4 TRX, 5 USDT-TRC20'
+      parameters:
+      - description: operationID is only for tracking
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/wallet_api.GetEthBalanceRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet_api.GetEthBalanceResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wallet_api.GetEthBalanceResponse'
+      summary: Get Balance for eth address
+      tags:
+      - ETH
+swagger: "2.0"

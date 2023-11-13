@@ -1,0 +1,23 @@
+syntax = "proto3";
+option go_package = "./push;push";
+package push;
+
+message PushMsgReq {
+  string OperationID = 1;
+  string PushToUserID = 2;
+  uint32 CoinType = 3;
+  uint32 TransferType = 4;
+  string PublicAddress = 5;
+  string TxHash = 6;
+  uint32 Status = 7;
+  string Amount = 8;
+}
+
+message PushMsgResp{
+  string PushResult = 2;
+}
+
+service PushMsgService {
+  rpc PushMsg(PushMsgReq) returns(PushMsgResp);
+}
+

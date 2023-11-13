@@ -1,0 +1,24 @@
+syntax = "proto3";
+option go_package = "./btc;btc";
+
+package btc;
+
+message CommonReq  {
+  string operationID = 1;
+}
+
+message CommonResp {
+  int32  errCode = 1;
+  string errMsg = 2;
+}
+
+message GetBlockChainInfoResp {
+  int32  errCode = 1;
+  string errMsg = 2;
+  string data = 3;
+}
+
+service btc {
+  rpc TestBtcRPC(CommonReq) returns(CommonResp);
+  rpc GetBlockChainInfoRPC(CommonReq) returns(GetBlockChainInfoResp);
+}

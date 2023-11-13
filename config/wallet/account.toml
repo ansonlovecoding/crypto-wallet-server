@@ -1,0 +1,19 @@
+types = ["client", "deposit", "payment", "stored"]
+
+deposit_receiver = "payment"
+payment_sender = "payment"
+
+[[multisig]]
+type = "deposit"
+required = 2
+auth_users = ["auth1", "auth2", "auth3", "auth4", "auth5"]
+
+[[multisig]]
+type = "payment"
+required = 3
+auth_users = ["auth1", "auth2", "auth3", "auth4", "auth5"]
+
+[[multisig]]
+type = "stored"
+required = 4
+auth_users = ["auth1", "auth2", "auth3", "auth4", "auth5"]

@@ -1,0 +1,2542 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is server for management platform.",
+        "title": "Admin API",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0"
+        },
+        "version": "1.0.0"
+    },
+    "host": "cms.wallet.com",
+    "basePath": "/cms/v1",
+    "paths": {
+        "/admin/account-management": {
+            "get": {
+                "description": "GetAccountInformation",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "GetAccountInformation",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "accountAddress",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "accountSource",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "coinsType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "filter",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "from",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "merchantUid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "operationID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "orderBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "to",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "uid",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetAccountInformationResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetAccountInformationResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/actions": {
+            "get": {
+                "description": "AdminUserActions",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "AdminUserActions",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetAdminUserActionsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetAdminUserActionsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/admin-verify-totp": {
+            "post": {
+                "description": "VerifyTOTPAdminUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "VerifyTOTPAdminUser",
+                "parameters": [
+                    {
+                        "description": "totp and operationID are required",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.ParamsTOTPVerify"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.AdminLoginResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.AdminLoginResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/confirm_tx": {
+            "post": {
+                "description": "ConfirmTransaction",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "ConfirmTransaction",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "coin_type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "operation_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tx_hash_id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.ConfirmTransactionResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.ConfirmTransactionResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/currencies": {
+            "get": {
+                "description": "GetCurrencies",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "GetCurrencies",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "operationID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetCurrenciesResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetCurrenciesResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/funds-log": {
+            "get": {
+                "description": "GetFundsLog",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "GetFundsLog",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "coinsType",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "from",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "merchantUid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "operationID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "oppositeAddress",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "state",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "to",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "transactionType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "txid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "uid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "userAddress",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetFundsLogResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetFundsLogResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/login": {
+            "post": {
+                "description": "Admin Login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Admin Login",
+                "parameters": [
+                    {
+                        "description": "admin_name and secret are required",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.AdminLoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.AdminLoginResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.AdminLoginResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/operational-report": {
+            "get": {
+                "description": "GetOperationalReport",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "GetOperationalReport",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "from",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "operationID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "to",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetOperationalReportResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetOperationalReportResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/receive-details": {
+            "get": {
+                "description": "GetReceiveDetails",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "GetReceiveDetails",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "coinsType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "depositAddress",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "from",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "merchantUid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "operationID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "receivingAddress",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "to",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "txid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "uid",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetRecieveDetailsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetRecieveDetailsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/reset-google-key": {
+            "post": {
+                "description": "ResetGoogleKey",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "ResetGoogleKey",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "operationID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "user_name",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/reset-password": {
+            "post": {
+                "description": "ChangePassword",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "ChangePassword",
+                "parameters": [
+                    {
+                        "description": "secret and new_secret are required",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.AdminPasswordChangeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.AdminPasswordChangeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.AdminPasswordChangeResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/role-actions": {
+            "get": {
+                "description": "GetRoleActions",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "GetRoleActions",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "operationID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "role_name",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetRoleActionsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetRoleActionsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/role-delete": {
+            "post": {
+                "description": "DeleteRole",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "DeleteRole",
+                "parameters": [
+                    {
+                        "description": "role_name and operationID are required",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.DeleteRoleRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/roles": {
+            "get": {
+                "description": "AdminUserRole",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "AdminUserRole",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "operationID",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "orderBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetAdminUserRoleResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetAdminUserRoleResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "AddAdminUserRole",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "AddAdminUserRole",
+                "parameters": [
+                    {
+                        "description": "role_name,description,actionIDs,remarks,status and username are required",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.PostAdminRoleRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/roles-update": {
+            "post": {
+                "description": "UpdateAdminRole",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "UpdateAdminRole",
+                "parameters": [
+                    {
+                        "description": "role_name,description,actionIDs,remarks and operationID are required",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.UpdateAdminRoleRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/test": {
+            "post": {
+                "description": "Testing admin server",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Test"
+                ],
+                "summary": "Testing admin server",
+                "parameters": [
+                    {
+                        "description": "operationID is only for tracking",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.TestRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.TestResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.TestResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/transfer-details": {
+            "get": {
+                "description": "GetTransferDetails",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "GetTransferDetails",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "coinsType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "from",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "merchantUid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "operationID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "orderBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "receivingAddress",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "state",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "to",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "transferAddress",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "txid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "uid",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetTransferDetailsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetTransferDetailsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/update-currency": {
+            "post": {
+                "description": "UpdateCurrency",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "UpdateCurrency",
+                "parameters": [
+                    {
+                        "description": "currency_id is required",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.UpdateCurrencyRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/user-delete": {
+            "post": {
+                "description": "DeleteUserAPI",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "DeleteUserAPI",
+                "parameters": [
+                    {
+                        "description": "user_name and operationID are required",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.DeleteAdminRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/user-info": {
+            "get": {
+                "description": "GetAdminUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "GetAdminUser",
+                "parameters": [
+                    {
+                        "description": "operationID is required",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetAdminUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetAdminUserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetAdminUserResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/users": {
+            "get": {
+                "description": "AdminUserList",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "AdminUserList",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "operationID",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "orderBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetAdminUsersResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.GetAdminUsersResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "AddAdminUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "AddAdminUser",
+                "parameters": [
+                    {
+                        "description": "user_name,secret,role,remarks,two_factor_enabled and status are required",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.PostAdminUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/users-update": {
+            "post": {
+                "description": "UpdateAdmin",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "UpdateAdmin",
+                "parameters": [
+                    {
+                        "description": "old_name,new_name,password,role,status, google_verification and operationID are required",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin_api.UpdateAdminReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "admin_api.AccountAddresses": {
+            "type": "object",
+            "properties": {
+                "btc_public_address": {
+                    "type": "string"
+                },
+                "erc_public_address": {
+                    "type": "string"
+                },
+                "eth_public_address": {
+                    "type": "string"
+                },
+                "trc_public_address": {
+                    "type": "string"
+                },
+                "trx_public_address": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.AccountAsset": {
+            "type": "object",
+            "properties": {
+                "euro_amount": {
+                    "type": "number"
+                },
+                "usd_amount": {
+                    "type": "number"
+                },
+                "yuan_amount": {
+                    "type": "number"
+                }
+            }
+        },
+        "admin_api.AccountInformation": {
+            "type": "object",
+            "properties": {
+                "account_assets": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.AccountAsset"
+                },
+                "account_source": {
+                    "type": "string"
+                },
+                "addresses": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.AccountAddresses"
+                },
+                "btc": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "coins_type": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "creation_login_information": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.LoginInformation"
+                },
+                "erc": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "eth": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "last_login_information": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.LoginInformation"
+                },
+                "merchant_uid": {
+                    "type": "string"
+                },
+                "total_balance": {
+                    "type": "number"
+                },
+                "trc": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "trx": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "uid": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.AdminLoginRequest": {
+            "type": "object",
+            "required": [
+                "admin_name",
+                "secret"
+            ],
+            "properties": {
+                "admin_name": {
+                    "type": "string"
+                },
+                "secret": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.AdminLoginResponse": {
+            "type": "object",
+            "properties": {
+                "gAuthEnabled": {
+                    "type": "boolean"
+                },
+                "gAuthSetupProvUri": {
+                    "type": "string"
+                },
+                "gAuthSetupRequired": {
+                    "type": "boolean"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "user": {
+                    "description": "UserName           string   `json:\"user_name\"`\nRole               string   `json:\"role\"`\nPermissions        []string `json:\"permissions\"`",
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.User"
+                }
+            }
+        },
+        "admin_api.AdminPasswordChangeRequest": {
+            "type": "object",
+            "required": [
+                "new_secret",
+                "secret"
+            ],
+            "properties": {
+                "new_secret": {
+                    "type": "string"
+                },
+                "secret": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.AdminPasswordChangeResponse": {
+            "type": "object",
+            "properties": {
+                "password_updated": {
+                    "type": "boolean"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.AdminUser": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "last_loginIP": {
+                    "type": "string"
+                },
+                "last_login_time": {
+                    "type": "integer"
+                },
+                "remarks": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "two_factor_enabled": {
+                    "type": "boolean"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.AdminUserRole": {
+            "type": "object",
+            "properties": {
+                "create_time": {
+                    "type": "integer"
+                },
+                "create_user": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "remarks": {
+                    "type": "string"
+                },
+                "role_name": {
+                    "type": "string"
+                },
+                "role_number": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "update_time": {
+                    "type": "integer"
+                },
+                "update_user": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.Children": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "type": "integer"
+                },
+                "Name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.Coin": {
+            "type": "object",
+            "properties": {
+                "balance": {
+                    "type": "number"
+                },
+                "euro_balance": {
+                    "type": "number"
+                },
+                "usd_balance": {
+                    "type": "number"
+                },
+                "yuan_balance": {
+                    "type": "number"
+                }
+            }
+        },
+        "admin_api.ConfirmTransactionRequest": {
+            "type": "object",
+            "properties": {
+                "coin_type": {
+                    "type": "integer"
+                },
+                "operation_id": {
+                    "type": "string"
+                },
+                "tx_hash_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.ConfirmTransactionResponse": {
+            "type": "object",
+            "properties": {
+                "transfer_detail": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.FundsLog"
+                }
+            }
+        },
+        "admin_api.Currency": {
+            "type": "object",
+            "properties": {
+                "coin_type": {
+                    "type": "string"
+                },
+                "editor": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "last_edited_time": {
+                    "type": "integer"
+                },
+                "state": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.DeleteAdminRequest": {
+            "type": "object",
+            "required": [
+                "user_name"
+            ],
+            "properties": {
+                "delete_user": {
+                    "type": "string"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.DeleteRoleRequest": {
+            "type": "object",
+            "required": [
+                "role_name"
+            ],
+            "properties": {
+                "delete_user": {
+                    "type": "string"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "role_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.FundsLog": {
+            "type": "object",
+            "properties": {
+                "amount_of_coins": {
+                    "type": "number"
+                },
+                "balance_after": {
+                    "type": "number"
+                },
+                "balance_before": {
+                    "type": "number"
+                },
+                "coin_type": {
+                    "type": "string"
+                },
+                "confirmation_time": {
+                    "type": "integer"
+                },
+                "creation_time": {
+                    "type": "integer"
+                },
+                "euro_amount": {
+                    "type": "number"
+                },
+                "euro_network_fee": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "merchant_uid": {
+                    "type": "string"
+                },
+                "network_fee": {
+                    "type": "number"
+                },
+                "opposite_address": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "total_coins_transfered": {
+                    "type": "number"
+                },
+                "total_euro_transfered": {
+                    "type": "number"
+                },
+                "total_usd_transfered": {
+                    "type": "number"
+                },
+                "total_yuan_transfered": {
+                    "type": "number"
+                },
+                "transaction_type": {
+                    "type": "string"
+                },
+                "txid": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "integer"
+                },
+                "usd_amount": {
+                    "type": "number"
+                },
+                "usd_network_fee": {
+                    "type": "number"
+                },
+                "user_address": {
+                    "type": "string"
+                },
+                "yuan_amount": {
+                    "type": "number"
+                },
+                "yuan_network_fee": {
+                    "type": "number"
+                }
+            }
+        },
+        "admin_api.GetAccountInformationRequest": {
+            "type": "object",
+            "properties": {
+                "accountAddress": {
+                    "type": "string"
+                },
+                "accountSource": {
+                    "type": "string"
+                },
+                "coinsType": {
+                    "type": "string"
+                },
+                "filter": {
+                    "type": "string"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "merchantUid": {
+                    "type": "string"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "orderBy": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "sort": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.GetAccountInformationResponse": {
+            "type": "object",
+            "properties": {
+                "accounts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/admin_api.AccountInformation"
+                    }
+                },
+                "btc_total": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "erc_total": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "eth_total": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "total_assets": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.AccountAsset"
+                },
+                "total_num": {
+                    "type": "integer"
+                },
+                "trc_total": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "trx_total": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                }
+            }
+        },
+        "admin_api.GetAdminUserActionsResponse": {
+            "type": "object",
+            "properties": {
+                "Children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/admin_api.Children"
+                    }
+                },
+                "ID": {
+                    "type": "integer"
+                },
+                "Name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.GetAdminUserRequest": {
+            "type": "object",
+            "properties": {
+                "operationID": {
+                    "description": "UserName    string `json:\"user_name\" swaggertype:\"string\"`",
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.GetAdminUserResponse": {
+            "type": "object",
+            "properties": {
+                "permissions": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "role_name": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.GetAdminUserRoleRequest": {
+            "type": "object",
+            "required": [
+                "operationID"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "orderBy": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.GetAdminUserRoleResponse": {
+            "type": "object",
+            "properties": {
+                "page": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "role_nums": {
+                    "type": "integer"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/admin_api.AdminUserRole"
+                    }
+                }
+            }
+        },
+        "admin_api.GetAdminUsersRequest": {
+            "type": "object",
+            "required": [
+                "operationID"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "orderBy": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.GetAdminUsersResponse": {
+            "type": "object",
+            "properties": {
+                "page": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "user_nums": {
+                    "type": "integer"
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/admin_api.AdminUser"
+                    }
+                }
+            }
+        },
+        "admin_api.GetCurrenciesRequest": {
+            "type": "object",
+            "properties": {
+                "operationID": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.GetCurrenciesResponse": {
+            "type": "object",
+            "properties": {
+                "currencies": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/admin_api.Currency"
+                    }
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "total_num": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.GetFundsLogRequest": {
+            "type": "object",
+            "required": [
+                "coinsType"
+            ],
+            "properties": {
+                "coinsType": {
+                    "type": "string"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "merchantUid": {
+                    "type": "string"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "oppositeAddress": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": "string"
+                },
+                "transactionType": {
+                    "type": "string"
+                },
+                "txid": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "integer"
+                },
+                "userAddress": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.GetFundsLogResponse": {
+            "type": "object",
+            "properties": {
+                "funds_log": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/admin_api.FundsLog"
+                    }
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "total_num": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.GetOperationalReportRequest": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "type": "string"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "to": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.GetOperationalReportResponse": {
+            "type": "object",
+            "properties": {
+                "grand_totals": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.OperationalReport"
+                },
+                "operational_reports": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/admin_api.OperationalReport"
+                    }
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "total_assets": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.AccountAsset"
+                },
+                "total_num": {
+                    "type": "integer"
+                },
+                "total_users": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.GetReceiveDetailsRequest": {
+            "type": "object",
+            "properties": {
+                "coinsType": {
+                    "type": "string"
+                },
+                "depositAddress": {
+                    "type": "string"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "merchantUid": {
+                    "type": "string"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "receivingAddress": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": "string"
+                },
+                "txid": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.GetRecieveDetailsResponse": {
+            "type": "object",
+            "properties": {
+                "grand_total_euro": {
+                    "type": "number"
+                },
+                "grand_total_usd": {
+                    "type": "number"
+                },
+                "grand_total_yuan": {
+                    "type": "number"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "receive_details": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/admin_api.ReceiveDetails"
+                    }
+                },
+                "total_amount_received_euro": {
+                    "type": "number"
+                },
+                "total_amount_received_usd": {
+                    "type": "number"
+                },
+                "total_amount_received_yuan": {
+                    "type": "number"
+                },
+                "total_num": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.GetRoleActionsRequest": {
+            "type": "object",
+            "required": [
+                "role_name"
+            ],
+            "properties": {
+                "operationID": {
+                    "type": "string"
+                },
+                "role_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.GetRoleActionsResponse": {
+            "type": "object",
+            "properties": {
+                "actions": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "admin_api.GetTransferDetailsRequest": {
+            "type": "object",
+            "properties": {
+                "coinsType": {
+                    "type": "string"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "merchantUid": {
+                    "type": "string"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "orderBy": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "receivingAddress": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": "string"
+                },
+                "transferAddress": {
+                    "type": "string"
+                },
+                "txid": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.GetTransferDetailsResponse": {
+            "type": "object",
+            "properties": {
+                "grand_total_euro": {
+                    "type": "number"
+                },
+                "grand_total_usd": {
+                    "type": "number"
+                },
+                "grand_total_yuan": {
+                    "type": "number"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "total_amount_transfered_euro": {
+                    "type": "number"
+                },
+                "total_amount_transfered_usd": {
+                    "type": "number"
+                },
+                "total_amount_transfered_yuan": {
+                    "type": "number"
+                },
+                "total_fee_amount_Yuan": {
+                    "type": "number"
+                },
+                "total_fee_amount_euro": {
+                    "type": "number"
+                },
+                "total_fee_amount_usd": {
+                    "type": "number"
+                },
+                "total_num": {
+                    "type": "integer"
+                },
+                "total_transfer_euro": {
+                    "type": "number"
+                },
+                "total_transfer_usd": {
+                    "type": "number"
+                },
+                "total_transfer_yuan": {
+                    "type": "number"
+                },
+                "transfer_details": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/admin_api.FundsLog"
+                    }
+                }
+            }
+        },
+        "admin_api.LoginInformation": {
+            "type": "object",
+            "properties": {
+                "login_ip": {
+                    "type": "string"
+                },
+                "login_region": {
+                    "type": "string"
+                },
+                "login_terminal": {
+                    "type": "string"
+                },
+                "login_time": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.OperationalReport": {
+            "type": "object",
+            "properties": {
+                "confirmation_time": {
+                    "type": "integer"
+                },
+                "network_fee": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Statistics"
+                },
+                "new_users": {
+                    "type": "integer"
+                },
+                "total_received": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Statistics"
+                },
+                "total_transfered": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Statistics"
+                }
+            }
+        },
+        "admin_api.ParamsTOTPVerify": {
+            "type": "object",
+            "required": [
+                "totp"
+            ],
+            "properties": {
+                "operationID": {
+                    "type": "string"
+                },
+                "totp": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.PostAdminRoleRequest": {
+            "type": "object",
+            "required": [
+                "actionIDs",
+                "description",
+                "remarks",
+                "role_name",
+                "user_name"
+            ],
+            "properties": {
+                "actionIDs": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "integer"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "remarks": {
+                    "type": "string"
+                },
+                "role_name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.PostAdminUserRequest": {
+            "type": "object",
+            "required": [
+                "remarks",
+                "role",
+                "secret",
+                "status",
+                "user_name"
+            ],
+            "properties": {
+                "operationID": {
+                    "type": "string"
+                },
+                "remarks": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "secret": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "two_factor_enabled": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.ReceiveDetails": {
+            "type": "object",
+            "properties": {
+                "amount_of_received": {
+                    "type": "number"
+                },
+                "coin_type": {
+                    "type": "string"
+                },
+                "creation_time": {
+                    "type": "integer"
+                },
+                "deposit_address": {
+                    "type": "string"
+                },
+                "euro_amount": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "merchant_uid": {
+                    "type": "string"
+                },
+                "receiving_address": {
+                    "type": "string"
+                },
+                "txid": {
+                    "type": "string"
+                },
+                "uid": {
+                    "type": "integer"
+                },
+                "usd_amount": {
+                    "type": "number"
+                },
+                "yuan_amount": {
+                    "type": "number"
+                }
+            }
+        },
+        "admin_api.ResetGoogleKeyRequest": {
+            "type": "object",
+            "required": [
+                "user_name"
+            ],
+            "properties": {
+                "operationID": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.Statistics": {
+            "type": "object",
+            "properties": {
+                "btc": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "erc": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "eth": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "total_assets": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.AccountAsset"
+                },
+                "trc": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                },
+                "trx": {
+                    "type": "object",
+                    "$ref": "#/definitions/admin_api.Coin"
+                }
+            }
+        },
+        "admin_api.TestRequest": {
+            "type": "object",
+            "required": [
+                "name",
+                "operationID"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "operationID": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.TestResponse": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.UpdateAdminReq": {
+            "type": "object",
+            "required": [
+                "role_name",
+                "status",
+                "user_name"
+            ],
+            "properties": {
+                "operationID": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "remarks": {
+                    "type": "string"
+                },
+                "role_name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "two_factor_enabled": {
+                    "type": "boolean"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.UpdateAdminRoleRequest": {
+            "type": "object",
+            "required": [
+                "actionIDs",
+                "remarks",
+                "role_name"
+            ],
+            "properties": {
+                "actionIDs": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "remarks": {
+                    "type": "string"
+                },
+                "role_name": {
+                    "type": "string"
+                },
+                "update_user": {
+                    "type": "string"
+                }
+            }
+        },
+        "admin_api.UpdateCurrencyRequest": {
+            "type": "object",
+            "required": [
+                "currency_id"
+            ],
+            "properties": {
+                "currency_id": {
+                    "type": "integer"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "integer"
+                }
+            }
+        },
+        "admin_api.User": {
+            "type": "object",
+            "properties": {
+                "permissions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "role": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

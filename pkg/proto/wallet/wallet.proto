@@ -1,0 +1,233 @@
+syntax = "proto3";
+option go_package = "./wallet;wallet";
+
+package wallet;
+
+message CommonReq  {
+  string OperationID = 1;
+}
+
+message CommonResp {
+  int32  ErrCode = 1;
+  string ErrMsg = 2;
+}
+
+message RequestPagination {
+  int32 Page = 1;
+  int32 PageSize = 2;
+}
+
+message ResponsePagination {
+  int32 Page = 1;
+  int32 PageSize = 2;
+}
+
+message GetSupportTokenAddressesReq  {
+  string OperationID = 1;
+}
+
+message SupportTokenAddress {
+  uint32 BelongCoin = 1;
+  uint32 CoinType = 2;
+  string ContractAddress = 3;
+}
+
+message GetSupportTokenAddressesResp {
+  int32  ErrCode = 1;
+  string ErrMsg = 2;
+  repeated SupportTokenAddress AddressList = 3;
+}
+
+message CreateAccountInfoReq{
+  string OperationID = 1;
+  string Uid = 2;
+  string MerchantId = 3;
+  string WalletAddress = 4;
+  string BtcPublicAddress = 5;
+  string EthPublicAddress = 6;
+  string TrxPublicAddress = 7;
+  string ErcPublicAddress = 8;
+  string TrcPublicAddress = 9;
+  double BtcBalance = 10;
+  double EthBalance = 11;
+  double TrxBalance = 12;
+  double ErcBalance = 13;
+  double TrcBalance = 14;
+  string AccountSource = 15;
+  string CreationLoginIp = 16;
+  string CreationLoginRegion = 17;
+  string CreationLoginTerminal = 18;
+  int64 CreationLoginTime = 19;
+  string LastLoginIp = 20;
+  string LastLoginRegion = 21;
+  string LastLoginTerminal = 22;
+  int64 LastLoginTime = 23;
+}
+
+message CreateAccountInfoResp{
+  string Uuid = 1;
+}
+
+message UpdateAccountInfoReq{
+  string OperationID = 1;
+  string Uid = 2;
+  string MerchantId = 3;
+  string LastLoginIp = 4;
+  string LastLoginRegion = 5;
+  string LastLoginTerminal = 6;
+  int64 LastLoginTime = 7;
+}
+
+message FundsLog{
+  int64 ID = 1 ;
+  string Txid = 2;
+  string TransactionType = 3;
+  string UserAddress = 4;
+  string OppositeAddress = 5;
+  double BalanceBefore = 6;
+  double BalanceAfter = 7;
+  string CoinType = 8;
+  double AmountOfCoins =9;
+  double UsdAmount = 10;
+  double YuanAmount = 11;
+  double EuroAmount = 12;
+  double NetworkFee = 13;
+  double UsdNetworkFee = 14;
+  double YuanNetworkFee = 15;
+  double EuroNetworkFee = 16;
+  double TotalCoinsTransfered = 17;
+  double TotalUsdTransfered = 18;
+  double TotalYuanTransfered = 19;
+  double TotalEuroTransfered = 20;
+  int64 CreationTime = 21;
+  string State = 22;
+  int64 ConfirmationTime = 23;
+  string Uid = 24;
+  string MerchantUid = 25;
+  uint64 GasLimit = 26;
+  uint64 GasPrice = 27;
+  uint64 GasUsed = 28;
+  string ConfirmationBlockNumber = 29;
+}
+
+message GetFundsLogReq{
+  string OperationID = 1;
+  string Uid = 2;
+  string MerchantUid = 3;
+  string From = 4;
+  string To = 5;
+  string TransactionType = 6;
+  string UserAddress = 7;
+  string OppositeAddress = 8;
+  string CoinsType = 9;
+  string State = 10;
+  string Txid = 11;
+  RequestPagination Pagination = 12;
+}
+
+message GetFundsLogResp{
+  ResponsePagination Pagination = 1;
+  repeated FundsLog FundLog = 2;
+  int64 TotalFundLogs = 3;
+}
+
+message GetCoinStatusesReq{
+  string OperationID = 1;
+}
+message Currency { 
+  int32 ID = 1;
+  string CoinType = 2;
+  int64 LastEditedTime = 3;
+  string Editor = 4;
+  int32 State = 5;
+}
+message GetCoinStatusesResp{
+  repeated Currency Currencies = 1;
+}
+message GetCoinRatioReq{
+  string OperationID = 1;
+}
+message Coin { 
+  int32 ID = 1;
+  string CoinType = 2;
+  double Usd = 3;
+  double Yuan = 4;
+  double Euro = 5;
+}
+message GetCoinRatioResp{
+  repeated Coin Coins = 1;
+}
+
+message GetUserWalletReq{
+  string OperationID = 1;
+  string UserId = 2;
+  uint32 CoinType = 3;
+}
+message GetUserWalletResp{
+  bool HasWallet = 1;
+  string Address = 2;
+}
+message UpdateCoinRatesReq{
+  string OperationID = 1;
+}
+
+message GetTransactionDetailReq{
+  string OperationID = 1;
+  int32 CoinType =2;
+  string TransactionHash =3;
+}
+
+message GetTransactionDetailRes{
+  TransactionDetail TransactionDetails=1;
+}
+
+message   GetTransactionListReq{
+  RequestPagination Pagination = 1;
+  string OperationID = 2;
+  string UserID=3;
+  string PublicAddress =4;
+  int32 TransactionType=5;
+  int32 TransactionState=6;
+  string OrderBy = 7;
+  string TransactionHash =8;
+  int32 CoinType =9;
+}
+
+message TransactionDetail{
+  string UUID = 1;
+  string SenderAccount = 2;
+  string SenderAddress = 3;
+  string ReceiverAccount = 4;
+  string ReceiverAddress = 5;
+  string Amount = 6;
+  string Fee = 7;
+  uint64 GasLimit = 8;
+  uint64 Nonce = 9;
+  string SentHashTX = 10;
+  uint64 SentUpdatedAt = 11;
+  int32 Status = 12;
+  uint64 ConfirmTime = 13;
+  string GasPrice = 14;
+  uint64 GasUsed = 15;
+  string ConfirmBlockNumber = 17;
+}
+
+message GetTransactionListRes{
+  ResponsePagination Pagination = 1;
+  repeated TransactionDetail TransactionDetails=2;
+  int64 TotalTrans=3;
+}
+
+service wallet {
+  rpc TestWalletRPC(CommonReq) returns(CommonResp);
+  rpc GetSupportTokenAddressesRPC(GetSupportTokenAddressesReq) returns(GetSupportTokenAddressesResp);
+  rpc CreateAccountInformation(CreateAccountInfoReq)returns(CreateAccountInfoResp);
+  rpc UpdateAccountInformation(UpdateAccountInfoReq)returns(CommonResp);
+  rpc GetFundsLog(GetFundsLogReq) returns(GetFundsLogResp);
+  rpc GetCoinStatuses(GetCoinStatusesReq)returns(GetCoinStatusesResp);
+  rpc GetCoinRatio(GetCoinRatioReq)returns(GetCoinRatioResp);
+  rpc GetUserWallet(GetUserWalletReq)returns(GetUserWalletResp);
+  rpc UpdateCoinRates(UpdateCoinRatesReq)returns(CommonResp);
+  rpc GetTransactionDetailRPC(GetTransactionDetailReq) returns(GetTransactionDetailRes);
+  rpc GetTransactionListRPC(GetTransactionListReq) returns(GetTransactionListRes);
+}

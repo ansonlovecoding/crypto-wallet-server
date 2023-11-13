@@ -1,0 +1,156 @@
+syntax = "proto3";
+option go_package = "./eth;eth";
+
+package eth;
+
+message CommonReq  {
+  string OperationID = 1;
+}
+
+message CommonResp {
+  int32  ErrCode = 1;
+  string ErrMsg = 2;
+}
+
+message GetBalanceReq  {
+  string OperationID = 1;
+  uint32 CoinType = 2;
+  string Address = 3;
+}
+
+message GetBalanceResp {
+  int32  ErrCode = 1;
+  string ErrMsg = 2;
+  string Balance = 3;
+}
+
+message GetGasPriceReq{
+  string OperationID = 1;
+  bool IsEstimatedGasPrice =2;
+}
+
+message GetGasPriceRes {
+  int32  ErrCode = 1;
+  string ErrMsg = 2;
+  int64  GasPrice = 3;
+}
+message PostTransferReq{
+  string OperationID = 1;
+  uint32 CoinType = 2;
+  string FromAccountUID = 3;
+  string FromMerchantUID = 4;
+  string FromAddress = 5;
+  string ToAddress = 6;
+  string Amount = 7;
+  string Fee = 8;
+  uint64 GasLimit = 9;
+  uint64 Nounce = 10;
+  string GasPrice = 11;
+  string TxHash = 13;
+}
+
+message EthTransactionDetail{
+  string UUID = 1;
+  string SenderAccount = 2;
+  string SenderAddress = 3;
+  string ReceiverAccount = 4;
+  string ReceiverAddress = 5;
+  string Amount = 6;
+  string Fee = 7;
+	uint64 GasLimit = 8;
+	uint64 Nonce = 9;
+	string SentHashTX = 10;
+	uint64 SentUpdatedAt = 11;
+  int32 Status = 12;
+	uint64 ConfirmTime = 13;
+  string GasPrice = 14;
+  uint64 GasUsed = 15;
+  uint64 BlockNumber = 16;
+  string ConfirmBlockNumber = 17;
+}
+
+message TransactionInfo{
+  string BlockHash = 1;       
+  string BlockNumber = 2;
+  string From = 3;        
+  int64 Gas = 4;     
+  int64 GasPrice = 5;        
+  string Hash = 6;          
+  string Input = 7;       
+  int64 Nonce = 8;      
+  string To = 9;        
+  int64 TransactionIndex = 10;
+  string Value = 11;
+  int64 V = 12;             
+  string R = 13;           
+  string S = 14;           
+}
+
+message TransferRPCResponse{
+    int32  ErrCode = 1;
+    string ErrMsg = 2;
+    EthTransactionDetail Transaction =3;
+}
+
+message GetEthConfirmationReq{
+  string OperationID = 1;
+  uint32 CoinType = 2;
+  string TransactionHash = 3;
+  string MessageID = 4;
+}
+
+message GetEthConfirmationRes{
+  string BlockNum =1;
+  int32 Status =2;
+  uint64 ConfirmTime =3;
+  string GasUsed =4;
+ }
+
+ message RequestPagination {
+  int32 Page = 1;
+  int32 PageSize = 2;
+}
+
+message ResponsePagination {
+  int32 Page = 1;
+  int32 PageSize = 2;
+}
+message PostTransferReq2 {
+  string OperationID = 1;
+ string Rawhex = 2;
+}
+
+message TransferRPCResponse2{
+  int32  ErrCode = 1;
+  string ErrMsg = 2;
+  string TranHash =3;
+}
+
+message CheckBalanceAndGetNonceReq  {
+  string OperationID = 1;
+  uint32 CoinType = 2;
+  string FromAddress = 3;
+  string TransactAmount = 4;
+  string GasPrice = 5;
+  string GasLimit = 6;
+}
+
+message CheckBalanceAndGetNonceResp {
+  int32  ErrCode = 1;
+  string ErrMsg = 2;
+  uint64 Nonce = 3;
+  string ChainID = 4;
+  string USDTERC20ContractAddress = 5;
+}
+
+service eth {
+  rpc TestEthRPC(CommonReq) returns(CommonResp);
+  rpc GetEthBalanceRPC(GetBalanceReq) returns(GetBalanceResp);
+  rpc GetEthGasPriceRPC(GetGasPriceReq) returns(GetGasPriceRes);
+  rpc TransferRPC(PostTransferReq) returns(TransferRPCResponse);
+  rpc TransferRPCV2(PostTransferReq2) returns(TransferRPCResponse2);
+  rpc GetConfirmationRPC(GetEthConfirmationReq) returns(GetEthConfirmationRes);
+  rpc CheckBalanceAndGetNonceRPC(CheckBalanceAndGetNonceReq) returns(CheckBalanceAndGetNonceResp);
+}
+
+

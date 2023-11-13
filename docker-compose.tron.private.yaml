@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+
+  tron_private:
+    build:
+      context: ./docker/images/tron/quickstart
+      dockerfile: Dockerfile
+    container_name:  tron_private
+    restart: always
+    ports:
+      - "9090:9090"
+      - "50051:50051"
+      - "50052:50052"

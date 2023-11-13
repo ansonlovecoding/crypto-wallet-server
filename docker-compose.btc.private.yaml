@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  #https://github.com/freewil/bitcoin-testnet-box
+  bitcoin_private:
+    build:
+      context: ./docker/images/bitcoin
+      dockerfile: ./bitcoin-testnet-box/Dockerfile
+    platform: linux/x86_64
+    container_name: btc_private
+    volumes:
+      - ./docker/images/bitcoin/bitcoin-testnet-box/1/bitcoin.conf:/home/tester/bitcoin-testnet-box/1/bitcoin.conf
+      - ./docker/images/bitcoin/bitcoin-testnet-box/2/bitcoin.conf:/home/tester/bitcoin-testnet-box/2/bitcoin.conf
+      - ./docker/images/bitcoin/bitcoin-testnet-box/1/regtest/server.cert:/home/tester/bitcoin-testnet-box/1/regtest/server.cert
+      - ./docker/images/bitcoin/bitcoin-testnet-box/1/regtest/server.pem:/home/tester/bitcoin-testnet-box/1/regtest/server.pem
+      - ./components/btc_private/node1:/home/tester/bitcoin-testnet-box/1
+      - ./components/btc_private/node2:/home/tester/bitcoin-testnet-box/2
+    restart: always
+    ports:
+      - "19001:19001"
+      - "19011:19011"
