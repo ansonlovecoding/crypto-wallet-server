@@ -142,40 +142,38 @@ server
 
 - [ ] Must encrypt the mnemonic phrase before you store to the local database
 
-- [ ] DEMO:
+  ```go
+  	//Set wordlist based on language. Default one is English
+  	/* Supported languages
+  	EN    = "en"
+  	CHSim = "ch-sim"
+  	CHTra = "ch-tra"
+  	FR    = "fr"
+  	IT    = "it"
+  	JA    = "ja"
+  	KO    = "ko"
+  	SP    = "sp"
+  	*/
+  	bip39.SetWordListLanguage(lang)
+  
+  	// Fetching entropy level using 128; will give 12 words
+  	entropy, err := bip39.NewEntropy(128)
+  	if err != nil {
+  		log.Println("error in NewEntropy()")
+  	}
+  	// Fetching seed phrase from BIP39
+  	mnemonic, err := bip39.NewMnemonic(entropy)
+  	if err != nil {
+  		log.Println("Error in NewMnemonic()")
+  	}
+  
+  	encSeedPhrase, err := utils.EncryptAES(mnemonic, key)
+  	if err != nil {
+  		log.Println("Error in EncryptAES()")
+  	}
+  ```
 
-  - [ ] ```go
-    // Set wordlist based on language. Default one is English
-    	/* Supported languages
-    	EN    = "en"
-    	CHSim = "ch-sim"
-    	CHTra = "ch-tra"
-    	FR    = "fr"
-    	IT    = "it"
-    	JA    = "ja"
-    	KO    = "ko"
-    	SP    = "sp"
-    	*/
-    	bip39.SetWordListLanguage(lang)
-    
-    	// Fetching entropy level using 128; will give 12 words
-    	entropy, err := bip39.NewEntropy(128)
-    	if err != nil {
-    		log.Println("error in NewEntropy()")
-    	}
-    	// Fetching seed phrase from BIP39
-    	mnemonic, err := bip39.NewMnemonic(entropy)
-    	if err != nil {
-    		log.Println("Error in NewMnemonic()")
-    	}
-    
-    	encSeedPhrase, err := utils.EncryptAES(mnemonic, key)
-    	if err != nil {
-    		log.Println("Error in EncryptAES()")
-    	}
-    ```
-
-    
+  
 
 ### How to set up environment by using the docker?
 
