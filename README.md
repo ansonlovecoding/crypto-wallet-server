@@ -131,6 +131,52 @@ server
 
 
 
+### How to generate mnemonic phrases?
+
+- [ ] Choose the Entropy Length (e.g., 128,160,192,224, or 256 bits), the length of mnemonic phrase depend on Entropy Length, normally we use the 128 bits to generate 12 words mnemonic phrase.
+
+- [ ] Using BIP-39 spec to generate the mnemonic phrase, you can check the follow links:
+
+  - [ ] https://github.com/tyler-smith/go-bip39/blob/master/bip39.go
+  - [ ] https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md
+
+- [ ] Must encrypt the mnemonic phrase before you store to the local database
+
+- [ ] DEMO:
+
+  - [ ] ```go
+    // Set wordlist based on language. Default one is English
+    	/* Supported languages
+    	EN    = "en"
+    	CHSim = "ch-sim"
+    	CHTra = "ch-tra"
+    	FR    = "fr"
+    	IT    = "it"
+    	JA    = "ja"
+    	KO    = "ko"
+    	SP    = "sp"
+    	*/
+    	bip39.SetWordListLanguage(lang)
+    
+    	// Fetching entropy level using 128; will give 12 words
+    	entropy, err := bip39.NewEntropy(128)
+    	if err != nil {
+    		log.Println("error in NewEntropy()")
+    	}
+    	// Fetching seed phrase from BIP39
+    	mnemonic, err := bip39.NewMnemonic(entropy)
+    	if err != nil {
+    		log.Println("Error in NewMnemonic()")
+    	}
+    
+    	encSeedPhrase, err := utils.EncryptAES(mnemonic, key)
+    	if err != nil {
+    		log.Println("Error in EncryptAES()")
+    	}
+    ```
+
+    
+
 ### How to set up environment by using the docker?
 
 - [ ] Change Server Configuration (config/config.yaml)
